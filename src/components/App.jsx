@@ -10,7 +10,7 @@ export const App = () => {
         color: '#010101'
       }}
     >
-      React homework template
+      Homework 07: Goit-react-hw-07-phonebook
     </div>
   );
 };
