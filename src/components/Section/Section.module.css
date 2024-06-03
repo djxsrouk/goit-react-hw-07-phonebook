@@ -1,0 +1,20 @@
+.sectionBook {
+    width: 100vw;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.titleStyle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.icon {
+    width: 30px;
+    height: auto;
+}

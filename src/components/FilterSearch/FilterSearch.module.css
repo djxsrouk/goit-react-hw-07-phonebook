@@ -1,0 +1,14 @@
+.filterInput {
+    padding: 10px;
+    border: 1px solid #012755;
+    background-color: #f9fafe;
+    color: #012755;
+    
+}
+
+.filterTitle,
+.filterInput {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}

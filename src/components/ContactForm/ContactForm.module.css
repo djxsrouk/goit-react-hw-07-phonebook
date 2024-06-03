@@ -1,0 +1,37 @@
+.formPhoneBook {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    background-color: #f9fafe;
+    color: #262430;
+}
+
+.formInput {
+    padding: 10px;
+    border: 1px solid #012755;
+    background-color: #f9fafe;
+    color: #012755;
+}
+
+.butonSubmit {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-weight: 700;
+    background-color: #FF7043;
+    color: #f9fafe;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.butonSubmit:hover {
+    background-color: #AB300B;
+}
+
+.labelName,
+.labelPhone {
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}

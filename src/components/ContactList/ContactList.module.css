@@ -1,0 +1,47 @@
+.contactSection {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.contactList {
+    text-align: left;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+}
+
+.contactItem {
+    list-style: square;
+    margin: 0;
+    padding-left: 20px;
+}
+
+.contactNr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    margin-left: -20px;
+}
+
+.deleteButonsSection {
+    display: flex;
+    align-items: center;
+}
+
+.deleteButons {
+    margin-left: auto;
+    border: none;
+    padding: 5px 10px;
+    background-color: #FF7043;
+    color: #f9fafe;
+    font-weight: 500;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.deleteButons:hover {
+    background-color: #AB300B;
+    color: #f9fafe;
+}
