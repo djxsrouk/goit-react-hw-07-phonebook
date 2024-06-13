@@ -2,15 +2,24 @@ import React from 'react';
 import styles from './ContactList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts, getStatusFilter } from '../../redux/selectors';
-import { deleteContacts } from '../../redux/contactsSlice';
+import { deleteContacts } from '../../redux/operations';
 
 const ContactList = () => {
   const contacts = useSelector(getContacts);
   const filter = useSelector(getStatusFilter);
   const dispatch = useDispatch();
 
-  const handleDelete = e => {
-    dispatch(deleteContacts(e.target.id));
+  const handleDelete = async id => {
+    console.log('Deleting contact with id:', id);
+    try {
+      const response = await dispatch(deleteContacts(id)).unwrap();
+      console.log('Delete Response:', response);
+      if (response.error) {
+        throw new Error(response.error.message);
+      }
+    } catch (error) {
+      console.error('Delete Error:', error);
+    }
   };
 
   const handleFilteredContacts = (contacts, filter = '') => {
@@ -39,7 +48,10 @@ const ContactList = () => {
           <li key={contact.id} className={styles.contactNr}>
             {`${contact.name}: ${contact.number}`}
             <div className={styles.deleteButonsSection}>
-              <button className={styles.deleteButons} onClick={handleDelete}>
+              <button
+                className={styles.deleteButons}
+                onClick={() => handleDelete(contact.id)}
+              >
                 Delete
               </button>
             </div>

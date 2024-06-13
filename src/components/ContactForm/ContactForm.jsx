@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './ContactForm.module.css';
 import Notiflix from 'notiflix';
 import { useDispatch } from 'react-redux';
-import { addContacts } from '../../redux/contactsSlice';
+import { addContacts } from '../../redux/operations';
 import { useSelector } from 'react-redux';
 import { getContacts } from '../../redux/selectors';
 
@@ -17,8 +17,10 @@ Notiflix.Notify.init({
 const ContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(getContacts);
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
 
     const form = event.currentTarget;
@@ -31,9 +33,21 @@ const ContactForm = () => {
     if (existingContact) {
       Notiflix.Notify.failure(`${name} is already in contacts!`);
     } else {
-      dispatch(addContacts(name, number));
-      Notiflix.Notify.success('Contact saved successfully!');
-      form.reset();
+      try {
+        console.log('Dispatching addContacts with:', { name, number });
+        const response = await dispatch(addContacts({ name, number }));
+        console.log('API Response:', response);
+
+        if (response.error) {
+          throw new Error(response.error.message);
+        }
+
+        Notiflix.Notify.success('Contact saved successfully!');
+        form.reset();
+      } catch (error) {
+        console.error('Error saving contact:', error);
+        Notiflix.Notify.failure('Failed to save contact.');
+      }
     }
   };
 
@@ -47,6 +61,8 @@ const ContactForm = () => {
           type="text"
           name="name"
           placeholder="Name"
+          value={name}
+          onChange={e => setName(e.target.value)}
           pattern="^[a-zA-Z]+(([' \-][a-zA-Z ])?[a-zA-Z]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
@@ -59,6 +75,8 @@ const ContactForm = () => {
           className={styles.formInput}
           type="tel"
           name="number"
+          value={number}
+          onChange={e => setNumber(e.target.value)}
           placeholder="Phone number"
           pattern="\+?\d{1,4}?[[\-.\s]]?\(?\d{1,3}?\)?[[\-.\s]]?\d{1,4}[[\-.\s]]?\d{1,4}[[\-.\s]]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
